@@ -1,0 +1,31 @@
+server:
+  port: 9999
+
+application:
+  version: @project.version@
+  name: @project.name@
+  description: @project.description@
+  artifact-id: @project.artifactId@
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: usr_contcom
+    password: pass_contcom
+    virtual-host: vhost_contcom
+  datasource:
+    url: jdbc:mysql://localhost:3306/continuous_communication_db?useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        show_sql: false
+        format_sql: false
+  profiles:
+    active: default

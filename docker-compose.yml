@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: continuous-communication-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: continuous_communication_db
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: rootcont
+      MYSQL_PASSWORD: 123456
+    ports:
+      - 3306:3306
+
+  rabbit:
+    image: rabbitmq:3.8.4-management-alpine
+    container_name: continuous-communication-rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: usr_contcom
+      RABBITMQ_DEFAULT_PASS: pass_contcom
+      RABBITMQ_DEFAULT_VHOST: vhost_contcom
+    ports:
+      - "5672:5672"
+      - "15672:15672"
