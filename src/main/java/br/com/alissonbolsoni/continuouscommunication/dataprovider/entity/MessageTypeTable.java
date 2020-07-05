@@ -1,13 +1,10 @@
 package br.com.alissonbolsoni.continuouscommunication.dataprovider.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "message_types")
-public class MessageType {
+public class MessageTypeTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,15 +14,11 @@ public class MessageType {
     @Column(nullable = false)
     private String type;
 
-    public MessageType() {
-        this(null, null);
+    public MessageTypeTable() {
+
     }
 
-    public MessageType(String type) {
-        this(null, type);
-    }
-
-    public MessageType(Integer messageTypeId, String type) {
+    public MessageTypeTable(Integer messageTypeId, String type) {
         this.messageTypeId = messageTypeId;
         this.type = type;
     }
@@ -34,15 +27,8 @@ public class MessageType {
         return messageTypeId;
     }
 
-    public void setMessageTypeId(Integer messageTypeId) {
-        this.messageTypeId = messageTypeId;
-    }
-
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
 }

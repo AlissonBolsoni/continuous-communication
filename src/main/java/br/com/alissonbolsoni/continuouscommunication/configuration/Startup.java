@@ -1,7 +1,7 @@
 package br.com.alissonbolsoni.continuouscommunication.configuration;
 
 import br.com.alissonbolsoni.continuouscommunication.dataprovider.dao.MessageTypeDao;
-import br.com.alissonbolsoni.continuouscommunication.dataprovider.entity.MessageType;
+import br.com.alissonbolsoni.continuouscommunication.dataprovider.entity.MessageTypeTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,19 +14,20 @@ import java.util.stream.StreamSupport;
 @Component
 public class Startup {
     private MessageTypeDao messageTypeDao;
+
     @Autowired
-    public Startup (MessageTypeDao messageTypeDao){
+    public Startup(MessageTypeDao messageTypeDao) {
         this.messageTypeDao = messageTypeDao;
     }
 
     @PostConstruct
     private void prepareDatabase() {
         try {
-            Iterable<MessageType> iterable = messageTypeDao.findAll();
-            List<MessageType> messageTypeList = StreamSupport.stream(iterable.spliterator(), false)
+            Iterable<MessageTypeTable> iterable = messageTypeDao.findAll();
+            List<MessageTypeTable> messageTypeTableList = StreamSupport.stream(iterable.spliterator(), false)
                     .collect(Collectors.toList());
 
-            if (messageTypeList.isEmpty())
+            if (messageTypeTableList.isEmpty())
                 createMessageTypeValues();
 
         } catch (Exception e) {
@@ -36,11 +37,11 @@ public class Startup {
 
     private void createMessageTypeValues() {
 
-        ArrayList<MessageType> list = new ArrayList<MessageType>();
-        list.add(new MessageType("email"));
-        list.add(new MessageType("sms"));
-        list.add(new MessageType("push"));
-        list.add(new MessageType("whatsapp"));
+        ArrayList<MessageTypeTable> list = new ArrayList<MessageTypeTable>();
+        list.add(new MessageTypeTable(null, "email"));
+        list.add(new MessageTypeTable(null, "sms"));
+        list.add(new MessageTypeTable(null, "push"));
+        list.add(new MessageTypeTable(null, "whatsapp"));
         messageTypeDao.saveAll(list);
     }
 }

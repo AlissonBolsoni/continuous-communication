@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>br.com.alissonbolsoni</groupId>
-    <artifactId>Continuous Communication</artifactId>
+    <artifactId>continuous-communication</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
-    <name>continuous-communication</name>
+    <packaging>jar</packaging>
+    <name>Continuous Communication API</name>
     <description>Server to store and manage messages which will be send to many channels.</description>
 
     <properties>
@@ -38,11 +38,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.amqp</groupId>
