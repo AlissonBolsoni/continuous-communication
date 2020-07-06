@@ -1,13 +1,10 @@
 package br.com.alissonbolsoni.continuouscommunication.dataprovider.repository;
 
 import br.com.alissonbolsoni.continuouscommunication.core.entity.MessageType;
-import br.com.alissonbolsoni.continuouscommunication.core.repository.MessageRepository;
 import br.com.alissonbolsoni.continuouscommunication.core.repository.MessageTypeRepository;
-import br.com.alissonbolsoni.continuouscommunication.dataprovider.dao.MessageDao;
 import br.com.alissonbolsoni.continuouscommunication.dataprovider.dao.MessageTypeDao;
 import br.com.alissonbolsoni.continuouscommunication.dataprovider.entity.MessageTypeTable;
-import br.com.alissonbolsoni.continuouscommunication.mapper.MessageTypesMapper;
-import br.com.alissonbolsoni.continuouscommunication.mapper.MessagesMapper;
+import br.com.alissonbolsoni.continuouscommunication.dataprovider.mapper.MessageTypesMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository

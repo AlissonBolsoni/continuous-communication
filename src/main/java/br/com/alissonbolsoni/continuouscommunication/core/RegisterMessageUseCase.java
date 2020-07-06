@@ -1,12 +1,12 @@
 package br.com.alissonbolsoni.continuouscommunication.core;
 
-import br.com.alissonbolsoni.continuouscommunication.controller.dto.MessageDto;
 import br.com.alissonbolsoni.continuouscommunication.core.entity.Message;
-import br.com.alissonbolsoni.continuouscommunication.exception.DateWrongException;
-import br.com.alissonbolsoni.continuouscommunication.exception.TypeNotExistsException;
+import br.com.alissonbolsoni.continuouscommunication.core.exception.DateWrongException;
+import br.com.alissonbolsoni.continuouscommunication.core.exception.RegisterFailException;
+import br.com.alissonbolsoni.continuouscommunication.core.exception.TypeNotExistsException;
 
 
 public interface RegisterMessageUseCase {
 
-    public Message RegisterMessage(MessageDto messageDto) throws TypeNotExistsException, DateWrongException, Exception;
+    public Message RegisterMessage(Message message) throws TypeNotExistsException, DateWrongException, RegisterFailException;
 }

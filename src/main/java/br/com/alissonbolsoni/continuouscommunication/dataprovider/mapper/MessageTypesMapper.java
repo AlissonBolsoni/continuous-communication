@@ -1,4 +1,4 @@
-package br.com.alissonbolsoni.continuouscommunication.mapper;
+package br.com.alissonbolsoni.continuouscommunication.dataprovider.mapper;
 
 import br.com.alissonbolsoni.continuouscommunication.core.entity.MessageType;
 import br.com.alissonbolsoni.continuouscommunication.dataprovider.entity.MessageTypeTable;

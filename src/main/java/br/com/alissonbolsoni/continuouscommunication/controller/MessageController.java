@@ -4,9 +4,10 @@ import br.com.alissonbolsoni.continuouscommunication.controller.dto.MessageDto;
 import br.com.alissonbolsoni.continuouscommunication.core.MessagesUseCase;
 import br.com.alissonbolsoni.continuouscommunication.core.RegisterMessageUseCase;
 import br.com.alissonbolsoni.continuouscommunication.core.entity.Message;
-import br.com.alissonbolsoni.continuouscommunication.exception.DateWrongException;
-import br.com.alissonbolsoni.continuouscommunication.exception.TypeNotExistsException;
-import br.com.alissonbolsoni.continuouscommunication.mapper.MessagesMapper;
+import br.com.alissonbolsoni.continuouscommunication.core.exception.DateWrongException;
+import br.com.alissonbolsoni.continuouscommunication.core.exception.RegisterFailException;
+import br.com.alissonbolsoni.continuouscommunication.core.exception.TypeNotExistsException;
+import br.com.alissonbolsoni.continuouscommunication.controller.mapper.MessagesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -35,10 +36,11 @@ public class MessageController {
     public ResponseEntity<MessageDto> registerMessage(@RequestBody MessageDto messageDto){
 
         try {
-            Message message = registerMessageUseCase.RegisterMessage(messageDto);
+            Message message = MessagesMapper.messageDtoToMessageEntity(messageDto);
+            Message messageReturned = registerMessageUseCase.RegisterMessage(message);
 
             return new ResponseEntity(
-                    MessagesMapper.messageEntityToMessageDto(message),
+                    MessagesMapper.messageEntityToMessageDto(messageReturned),
                     HttpStatus.OK
             );
         } catch (TypeNotExistsException e) {
@@ -51,7 +53,7 @@ public class MessageController {
                     new MessageDto(e.getLocalizedMessage()),
                     HttpStatus.EXPECTATION_FAILED
             );
-        } catch (Exception e) {
+        } catch (RegisterFailException e) {
             return new ResponseEntity(
                     new MessageDto(e.getLocalizedMessage()),
                     HttpStatus.INTERNAL_SERVER_ERROR

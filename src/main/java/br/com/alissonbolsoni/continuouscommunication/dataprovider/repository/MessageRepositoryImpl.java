@@ -1,9 +1,10 @@
 package br.com.alissonbolsoni.continuouscommunication.dataprovider.repository;
 
-import br.com.alissonbolsoni.continuouscommunication.core.entity.MessageType;
+import br.com.alissonbolsoni.continuouscommunication.core.entity.Message;
 import br.com.alissonbolsoni.continuouscommunication.core.repository.MessageRepository;
 import br.com.alissonbolsoni.continuouscommunication.dataprovider.dao.MessageDao;
 import br.com.alissonbolsoni.continuouscommunication.dataprovider.entity.MessageTable;
+import br.com.alissonbolsoni.continuouscommunication.dataprovider.mapper.MessagesMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -16,8 +17,8 @@ public class MessageRepositoryImpl implements MessageRepository {
     }
 
     @Override
-    public MessageTable saveMessage(MessageTable messageTable) throws Exception {
-        MessageTable save = messageDao.save(messageTable);
-        return save;
+    public Message saveMessage(Message message) throws Exception {
+        MessageTable save = messageDao.save(MessagesMapper.messageToMessageTable(message));
+        return MessagesMapper.messageTableToMessage(save);
     }
 }

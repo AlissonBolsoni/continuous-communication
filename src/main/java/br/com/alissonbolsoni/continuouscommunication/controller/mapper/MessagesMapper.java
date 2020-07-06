@@ -1,8 +1,9 @@
-package br.com.alissonbolsoni.continuouscommunication.mapper;
+package br.com.alissonbolsoni.continuouscommunication.controller.mapper;
 
 import br.com.alissonbolsoni.continuouscommunication.controller.dto.MessageDto;
 import br.com.alissonbolsoni.continuouscommunication.core.contants.MessageStatus;
 import br.com.alissonbolsoni.continuouscommunication.core.entity.Message;
+import br.com.alissonbolsoni.continuouscommunication.core.entity.MessageType;
 import br.com.alissonbolsoni.continuouscommunication.dataprovider.entity.MessageTable;
 import org.springframework.data.domain.Page;
 
@@ -29,38 +30,10 @@ public class MessagesMapper {
         return new Message(
                 messageDto.getUuid(),
                 messageDto.getMessage(),
-                null,
+                new MessageType(null, messageDto.getMessageType()),
                 messageDto.getSendTime(),
                 MessageStatus.WAITING,
                 MessageDestinyMapper.toEntity(messageDto.getDestiny())
-        );
-    }
-
-    public static Page<MessageTable> pageMessageToPageMessageTable(final Page<Message> messages){
-        return messages.map(MessagesMapper::messageToMessageTable);
-    }
-
-    public static MessageTable messageToMessageTable(Message message) {
-        return new MessageTable(
-                message.getMessage(),
-                message.getMessageType().getMessageTypeId(),
-                message.getSendTime(),
-                message.getStatus().getStatus()
-        );
-    }
-
-    public static Page<Message> pageMessageTableToPageMessage(final Page<MessageTable> messages){
-        return messages.map(MessagesMapper::messageTableToMessage);
-    }
-
-    public static Message messageTableToMessage(MessageTable message) {
-        return new Message(
-                message.getMessageId(),
-                message.getMessage(),
-                null,
-                message.getSendTime(),
-                MessageStatus.findByValue(message.getStatus()),
-                null
         );
     }
 
