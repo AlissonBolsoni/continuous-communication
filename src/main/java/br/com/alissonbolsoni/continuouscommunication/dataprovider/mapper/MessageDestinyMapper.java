@@ -20,7 +20,7 @@ public class MessageDestinyMapper {
         return new MessageDestinyTable(
                 message.getMessageDestinyId(),
                 message.getDestiny(),
-                null
+                messageId
         );
     }
 

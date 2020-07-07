@@ -1,6 +1,7 @@
 package br.com.alissonbolsoni.continuouscommunication.core.impl;
 
 import br.com.alissonbolsoni.continuouscommunication.core.RegisterMessageUseCase;
+import br.com.alissonbolsoni.continuouscommunication.core.contants.RoutingKeys;
 import br.com.alissonbolsoni.continuouscommunication.core.entity.Message;
 import br.com.alissonbolsoni.continuouscommunication.core.entity.MessageDestiny;
 import br.com.alissonbolsoni.continuouscommunication.core.entity.MessageType;
@@ -10,6 +11,8 @@ import br.com.alissonbolsoni.continuouscommunication.core.exception.TypeNotExist
 import br.com.alissonbolsoni.continuouscommunication.core.repository.MessageDestinyRepository;
 import br.com.alissonbolsoni.continuouscommunication.core.repository.MessageRepository;
 import br.com.alissonbolsoni.continuouscommunication.core.repository.MessageTypeRepository;
+import br.com.alissonbolsoni.continuouscommunication.core.services.AmqpSender;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +25,14 @@ public class RegisterMessageUseCaseImpl implements RegisterMessageUseCase {
     private final MessageTypeRepository messageTypeRepository;
     private final MessageRepository messageRepository;
     private final MessageDestinyRepository messageDestinyRepository;
+    private final AmqpSender amqpSender;
 
     @Autowired
-    public RegisterMessageUseCaseImpl(MessageTypeRepository messageTypeRepository, MessageRepository messageRepository, MessageDestinyRepository messageDestinyRepository) {
+    public RegisterMessageUseCaseImpl(MessageTypeRepository messageTypeRepository, MessageRepository messageRepository, MessageDestinyRepository messageDestinyRepository, AmqpSender amqpSender) {
         this.messageTypeRepository = messageTypeRepository;
         this.messageRepository = messageRepository;
         this.messageDestinyRepository = messageDestinyRepository;
+        this.amqpSender = amqpSender;
     }
 
     @Override
@@ -46,6 +51,11 @@ public class RegisterMessageUseCaseImpl implements RegisterMessageUseCase {
 
             messageToReturn.setDestinies(messageDestiny);
             messageToReturn.setMessageType(messageType);
+
+            if (messageType.getType().equals("email")){
+                ObjectMapper objectMapper = new ObjectMapper();
+                amqpSender.sendMessage(RoutingKeys.ROUTING_KEY_EMAIL, objectMapper.writeValueAsString(messageToReturn));
+            }
             return messageToReturn;
         } catch (Exception e) {
             e.printStackTrace();

@@ -12,4 +12,6 @@ public class AmqpConfiguration {
     protected TopicExchange createExchange() {
         return new TopicExchange(EXCHANGE_NAME, true, false);
     }
+
+
 }

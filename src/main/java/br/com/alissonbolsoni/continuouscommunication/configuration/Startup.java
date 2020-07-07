@@ -13,7 +13,7 @@ import java.util.stream.StreamSupport;
 
 @Component
 public class Startup {
-    private MessageTypeDao messageTypeDao;
+    private final MessageTypeDao messageTypeDao;
 
     @Autowired
     public Startup(MessageTypeDao messageTypeDao) {

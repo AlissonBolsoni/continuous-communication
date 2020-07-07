@@ -40,8 +40,19 @@ public class MessageRepositoryImpl implements MessageRepository {
     }
 
     @Override
-    public Message saveMessage(Message message) throws Exception {
+    public Message saveMessage(Message message) {
         MessageTable save = messageDao.save(MessagesMapper.messageToMessageTable(message));
         return MessagesMapper.messageTableToMessage(save);
+    }
+
+    @Override
+    public Boolean updateMessage(Message message) {
+        try {
+            MessageTable messageTable = MessagesMapper.messageToUpdateMessageTable(message);
+            messageDao.save(messageTable);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 }

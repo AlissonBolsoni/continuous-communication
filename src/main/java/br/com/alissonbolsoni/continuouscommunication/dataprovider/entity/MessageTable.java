@@ -39,6 +39,14 @@ public class MessageTable {
         this.status = status;
     }
 
+    public MessageTable(String messageId, String message, MessageTypeTable messageType, Date sendTime, Integer status) {
+        this.messageId = messageId;
+        this.message = message;
+        this.messageType = messageType;
+        this.sendTime = sendTime;
+        this.status = status;
+    }
+
     public String getMessageId() {
         return messageId;
     }

@@ -24,6 +24,16 @@ public class MessagesMapper {
         );
     }
 
+    public static MessageTable messageToUpdateMessageTable(Message message) {
+        return new MessageTable(
+                message.getMessageId(),
+                message.getMessage(),
+                MessageTypesMapper.messageTypeToMessageTypeTable(message.getMessageType()),
+                message.getSendTime(),
+                message.getStatus().getStatus()
+        );
+    }
+
     public static List<Message> pageMessageTableToPageMessage(final List<MessageTable> messages){
         return messages
                 .stream()
