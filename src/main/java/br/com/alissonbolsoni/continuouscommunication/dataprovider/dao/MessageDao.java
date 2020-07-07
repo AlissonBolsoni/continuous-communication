@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MessageDao extends CrudRepository<MessageTable, String> {
 
-    Page<MessageTable> findByMessageId(String uuid, final Pageable pageable);
+    MessageTable findByMessageId(String uuid);
 
 }

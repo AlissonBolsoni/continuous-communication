@@ -10,9 +10,12 @@ import br.com.alissonbolsoni.continuouscommunication.core.exception.TypeNotExist
 import br.com.alissonbolsoni.continuouscommunication.controller.mapper.MessagesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static br.com.alissonbolsoni.continuouscommunication.controller.MessageController.PATH;
 
@@ -21,7 +24,7 @@ import static br.com.alissonbolsoni.continuouscommunication.controller.MessageCo
 public class MessageController {
     protected static final String PATH = "/message";
     protected static final String PATH_REGISTER = "/register";
-    protected static final String PATH_MESSAGES = "/all";
+    protected static final String PATH_MESSAGE_BY_ID = "/{id}";
 
     private final MessagesUseCase messagesUseCase;
     private final RegisterMessageUseCase registerMessageUseCase;
@@ -33,7 +36,7 @@ public class MessageController {
     }
 
     @PostMapping(PATH_REGISTER)
-    public ResponseEntity<MessageDto> registerMessage(@RequestBody MessageDto messageDto){
+    public ResponseEntity<MessageDto> registerMessage(@RequestBody MessageDto messageDto) {
 
         try {
             Message message = MessagesMapper.messageDtoToMessageEntity(messageDto);
@@ -61,13 +64,13 @@ public class MessageController {
         }
     }
 
-    //TODO receber a página
-    @GetMapping(value = PATH_MESSAGES)
-    public ResponseEntity<Page<MessageDto>> getAllMessages() {
+    @GetMapping(value = PATH_MESSAGE_BY_ID)
+    public ResponseEntity<Page<MessageDto>> getMessageById(@PathVariable String id) {
         try {
+            Message messageById = messagesUseCase.getMessageById(id);
+
             return new ResponseEntity(
-//                    MessagesMapper.pageMessageToPageMessageDto(messagesUseCase.getAllMessages()),
-                    null,
+                    MessagesMapper.messageEntityToMessageDto(messageById),
                     HttpStatus.OK
             );
         } catch (Exception e) {

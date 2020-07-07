@@ -10,10 +10,9 @@ public class MessageDestiny {
     public MessageDestiny() {
     }
 
-    public MessageDestiny(Integer messageDestinyId, String destiny, String messageId) {
+    public MessageDestiny(Integer messageDestinyId, String destiny) {
         this.messageDestinyId = messageDestinyId;
         this.destiny = destiny;
-        this.messageId = messageId;
     }
 
     public Integer getMessageDestinyId() {

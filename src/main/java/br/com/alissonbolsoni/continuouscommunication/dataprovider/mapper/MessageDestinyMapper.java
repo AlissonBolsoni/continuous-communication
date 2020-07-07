@@ -20,7 +20,7 @@ public class MessageDestinyMapper {
         return new MessageDestinyTable(
                 message.getMessageDestinyId(),
                 message.getDestiny(),
-                messageId
+                null
         );
     }
 
@@ -34,8 +34,7 @@ public class MessageDestinyMapper {
     public static MessageDestiny tableToEntity(MessageDestinyTable message){
         return new MessageDestiny(
                 message.getMessageDestinyId(),
-                message.getDestiny(),
-                message.getMessageId()
+                message.getDestiny()
         );
     }
 }

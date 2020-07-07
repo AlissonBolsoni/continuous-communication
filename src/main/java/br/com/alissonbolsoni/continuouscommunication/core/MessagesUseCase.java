@@ -1,9 +1,7 @@
 package br.com.alissonbolsoni.continuouscommunication.core;
 
-import br.com.alissonbolsoni.continuouscommunication.dataprovider.entity.MessageTable;
-import br.com.alissonbolsoni.continuouscommunication.core.exception.DateWrongException;
-import br.com.alissonbolsoni.continuouscommunication.core.exception.TypeNotExistsException;
+import br.com.alissonbolsoni.continuouscommunication.core.entity.Message;
 
 public interface MessagesUseCase {
-    public MessageTable getAllMessages() throws TypeNotExistsException, DateWrongException;
+    public Message getMessageById(String id);
 }

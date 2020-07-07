@@ -30,8 +30,7 @@ public class MessageDestinyMapper {
     public static MessageDestiny toEntity(String message){
         return new MessageDestiny(
                 null,
-                message,
-                null
+                message
         );
     }
 

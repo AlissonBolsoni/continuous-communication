@@ -1,12 +1,10 @@
 package br.com.alissonbolsoni.continuouscommunication.dataprovider.entity;
 
+import br.com.alissonbolsoni.continuouscommunication.core.entity.MessageType;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
@@ -20,8 +18,9 @@ public class MessageTable {
     @Column(nullable = false)
     private String message;
 
-    @Column(nullable = false)
-    private Integer messageTypeId;
+    @ManyToOne
+    @JoinColumn(name = "message_type_id")
+    private MessageTypeTable messageType;
 
     @Column(nullable = false)
     private Date sendTime;
@@ -32,10 +31,10 @@ public class MessageTable {
     public MessageTable() {
     }
 
-    public MessageTable(String message, Integer messageTypeId, Date sendTime, Integer status) {
+    public MessageTable(String message, MessageTypeTable messageType, Date sendTime, Integer status) {
         this.messageId = UUID.randomUUID().toString();
         this.message = message;
-        this.messageTypeId = messageTypeId;
+        this.messageType = messageType;
         this.sendTime = sendTime;
         this.status = status;
     }
@@ -48,12 +47,12 @@ public class MessageTable {
         return message;
     }
 
-    public Date getSendTime() {
-        return sendTime;
+    public MessageTypeTable getMessageType() {
+        return messageType;
     }
 
-    public Integer getMessageTypeId() {
-        return messageTypeId;
+    public Date getSendTime() {
+        return sendTime;
     }
 
     public Integer getStatus() {

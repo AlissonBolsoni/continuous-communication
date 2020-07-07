@@ -4,26 +4,32 @@ import br.com.alissonbolsoni.continuouscommunication.controller.dto.MessageDto;
 import br.com.alissonbolsoni.continuouscommunication.core.contants.MessageStatus;
 import br.com.alissonbolsoni.continuouscommunication.core.entity.Message;
 import br.com.alissonbolsoni.continuouscommunication.core.entity.MessageType;
-import br.com.alissonbolsoni.continuouscommunication.dataprovider.entity.MessageTable;
-import org.springframework.data.domain.Page;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MessagesMapper {
 
-    public static Page<MessageDto> pageMessageToPageMessageDto(final Page<Message> messages){
-        return messages.map(MessagesMapper::messageEntityToMessageDto);
+    public static List<MessageDto> pageMessageToPageMessageDto(final List<Message> messages) {
+        List<MessageDto> dtos = new ArrayList<>();
+        for (int i = 0; i < messages.size(); i++) {
+            dtos.add(
+                    MessagesMapper.messageEntityToMessageDto(messages.get(i))
+            );
+        }
+
+        return dtos;
+//        return messages.stream().map(MessagesMapper::messageEntityToMessageDto).collect(Collectors.toList());
     }
 
-    public static MessageDto messageEntityToMessageDto(Message message){
+    public static MessageDto messageEntityToMessageDto(Message message) {
         return new MessageDto(
                 message.getMessageId(),
                 message.getMessage(),
                 MessageDestinyMapper.toDto(message.getDestinies()),
                 message.getMessageType().getType(),
                 message.getSendTime());
-    }
-
-    public static Page<Message> pageMessageDtoToPageMessageEntity(final Page<MessageDto> messagesDto){
-        return messagesDto.map(MessagesMapper::messageDtoToMessageEntity);
     }
 
     public static Message messageDtoToMessageEntity(MessageDto messageDto) {
