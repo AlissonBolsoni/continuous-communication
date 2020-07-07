@@ -1,21 +1,19 @@
 package br.com.alissonbolsoni.continuouscommunication.controller;
 
 import br.com.alissonbolsoni.continuouscommunication.controller.dto.MessageDto;
+import br.com.alissonbolsoni.continuouscommunication.controller.mapper.MessagesMapper;
 import br.com.alissonbolsoni.continuouscommunication.core.MessagesUseCase;
 import br.com.alissonbolsoni.continuouscommunication.core.RegisterMessageUseCase;
+import br.com.alissonbolsoni.continuouscommunication.core.RemoveMessageUseCase;
 import br.com.alissonbolsoni.continuouscommunication.core.entity.Message;
 import br.com.alissonbolsoni.continuouscommunication.core.exception.DateWrongException;
 import br.com.alissonbolsoni.continuouscommunication.core.exception.RegisterFailException;
+import br.com.alissonbolsoni.continuouscommunication.core.exception.RemoveFailException;
 import br.com.alissonbolsoni.continuouscommunication.core.exception.TypeNotExistsException;
-import br.com.alissonbolsoni.continuouscommunication.controller.mapper.MessagesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 import static br.com.alissonbolsoni.continuouscommunication.controller.MessageController.PATH;
 
@@ -28,11 +26,13 @@ public class MessageController {
 
     private final MessagesUseCase messagesUseCase;
     private final RegisterMessageUseCase registerMessageUseCase;
+    private final RemoveMessageUseCase removeMessageUseCase;
 
     @Autowired
-    public MessageController(MessagesUseCase messagesUseCase, RegisterMessageUseCase registerMessageUseCase) {
+    public MessageController(MessagesUseCase messagesUseCase, RegisterMessageUseCase registerMessageUseCase, RemoveMessageUseCase removeMessageUseCase) {
         this.messagesUseCase = messagesUseCase;
         this.registerMessageUseCase = registerMessageUseCase;
+        this.removeMessageUseCase = removeMessageUseCase;
     }
 
     @PostMapping(PATH_REGISTER)
@@ -65,7 +65,7 @@ public class MessageController {
     }
 
     @GetMapping(value = PATH_MESSAGE_BY_ID)
-    public ResponseEntity<Page<MessageDto>> getMessageById(@PathVariable String id) {
+    public ResponseEntity<MessageDto> getMessageById(@PathVariable String id) {
         try {
             Message messageById = messagesUseCase.getMessageById(id);
 
@@ -74,6 +74,22 @@ public class MessageController {
                     HttpStatus.OK
             );
         } catch (Exception e) {
+            return new ResponseEntity(
+                    new MessageDto(e.getLocalizedMessage()),
+                    HttpStatus.NOT_FOUND
+            );
+        }
+    }
+
+    @DeleteMapping(value = PATH_MESSAGE_BY_ID)
+    public ResponseEntity<MessageDto> removeMessageById(@PathVariable String id) {
+        try {
+            Message messageById = removeMessageUseCase.removeMessageById(id);
+            return new ResponseEntity(
+                    MessagesMapper.messageEntityToMessageDto(messageById),
+                    HttpStatus.OK
+            );
+        } catch (RemoveFailException e) {
             return new ResponseEntity(
                     new MessageDto(e.getLocalizedMessage()),
                     HttpStatus.NOT_FOUND
