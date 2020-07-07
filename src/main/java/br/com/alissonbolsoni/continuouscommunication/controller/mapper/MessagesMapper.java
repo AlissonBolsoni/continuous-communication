@@ -29,7 +29,8 @@ public class MessagesMapper {
                 message.getMessage(),
                 MessageDestinyMapper.toDto(message.getDestinies()),
                 message.getMessageType().getType(),
-                message.getSendTime());
+                message.getSendTime(),
+                message.getStatus().name());
     }
 
     public static Message messageDtoToMessageEntity(MessageDto messageDto) {

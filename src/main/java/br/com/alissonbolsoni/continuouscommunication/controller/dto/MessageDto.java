@@ -12,12 +12,13 @@ public class MessageDto {
         this.message = message;
     }
 
-    public MessageDto(String uuid, String message, List<String> destiny, String messageType, Date sendTime) {
+    public MessageDto(String uuid, String message, List<String> destiny, String messageType, Date sendTime, String messageStatus) {
         this.uuid = uuid;
         this.message = message;
         this.destiny = destiny;
         this.messageType = messageType;
         this.sendTime = sendTime;
+        this.messageStatus = messageStatus;
     }
 
     private String uuid;
@@ -25,6 +26,7 @@ public class MessageDto {
     private List<String> destiny;
     private String messageType;
     private Date sendTime;
+    private String messageStatus;
 
     public String getUuid() {
         return uuid;
@@ -44,5 +46,9 @@ public class MessageDto {
 
     public Date getSendTime() {
         return sendTime;
+    }
+
+    public String getMessageStatus() {
+        return messageStatus;
     }
 }
