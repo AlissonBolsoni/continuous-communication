@@ -37,6 +37,6 @@ public class EmailWorker {
         System.out.println(body);
         ObjectMapper objectMapper = new ObjectMapper();
         br.com.alissonbolsoni.continuouscommunication.core.entity.Message messageReaded = objectMapper.readValue(body, br.com.alissonbolsoni.continuouscommunication.core.entity.Message.class);
-        updateMessageUseCase.UpdateMessage(messageReaded);
+        updateMessageUseCase.updateMessage(messageReaded);
     }
 }

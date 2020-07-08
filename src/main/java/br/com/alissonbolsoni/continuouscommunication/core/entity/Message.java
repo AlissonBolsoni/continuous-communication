@@ -5,6 +5,7 @@ import br.com.alissonbolsoni.continuouscommunication.core.contants.MessageStatus
 import javax.persistence.Column;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Message {
     private String messageId;
@@ -72,5 +73,23 @@ public class Message {
 
     public void setDestinies(List<MessageDestiny> destinies) {
         this.destinies = destinies;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message1 = (Message) o;
+        return Objects.equals(messageId, message1.messageId) &&
+                Objects.equals(message, message1.message) &&
+                Objects.equals(messageType, message1.messageType) &&
+                Objects.equals(sendTime, message1.sendTime) &&
+                status == message1.status &&
+                Objects.equals(destinies, message1.destinies);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(messageId, message, messageType, sendTime, status, destinies);
     }
 }

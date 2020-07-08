@@ -20,7 +20,10 @@ public class RemoveMessageUseCaseImpl implements RemoveMessageUseCase {
     @Override
     public Message removeMessageById(String id) throws RemoveFailException {
         try {
-            return messageRepository.removeMessage(id);
+            Message message = messageRepository.removeMessage(id);
+
+            if (message == null) throw new RemoveFailException("Nenhuma mensagem foi encontrada com esse ID");
+            return message;
         }catch (Exception e){
             throw new RemoveFailException("Falha ao deletar a mensagem");
         }

@@ -8,5 +8,5 @@ import br.com.alissonbolsoni.continuouscommunication.core.exception.TypeNotExist
 
 public interface RegisterMessageUseCase {
 
-    public Message RegisterMessage(Message message) throws TypeNotExistsException, DateWrongException, RegisterFailException;
+    public Message registerMessage(Message message) throws TypeNotExistsException, DateWrongException, RegisterFailException;
 }

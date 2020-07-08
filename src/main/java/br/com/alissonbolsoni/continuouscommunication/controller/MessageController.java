@@ -6,10 +6,7 @@ import br.com.alissonbolsoni.continuouscommunication.core.MessagesUseCase;
 import br.com.alissonbolsoni.continuouscommunication.core.RegisterMessageUseCase;
 import br.com.alissonbolsoni.continuouscommunication.core.RemoveMessageUseCase;
 import br.com.alissonbolsoni.continuouscommunication.core.entity.Message;
-import br.com.alissonbolsoni.continuouscommunication.core.exception.DateWrongException;
-import br.com.alissonbolsoni.continuouscommunication.core.exception.RegisterFailException;
-import br.com.alissonbolsoni.continuouscommunication.core.exception.RemoveFailException;
-import br.com.alissonbolsoni.continuouscommunication.core.exception.TypeNotExistsException;
+import br.com.alissonbolsoni.continuouscommunication.core.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +37,7 @@ public class MessageController {
 
         try {
             Message message = MessagesMapper.messageDtoToMessageEntity(messageDto);
-            Message messageReturned = registerMessageUseCase.RegisterMessage(message);
+            Message messageReturned = registerMessageUseCase.registerMessage(message);
 
             return new ResponseEntity(
                     MessagesMapper.messageEntityToMessageDto(messageReturned),
@@ -73,7 +70,7 @@ public class MessageController {
                     MessagesMapper.messageEntityToMessageDto(messageById),
                     HttpStatus.OK
             );
-        } catch (Exception e) {
+        } catch (NotFoundException e) {
             return new ResponseEntity(
                     new MessageDto(e.getLocalizedMessage()),
                     HttpStatus.NOT_FOUND

@@ -21,18 +21,13 @@ public class Startup {
     }
 
     @PostConstruct
-    private void prepareDatabase() {
-        try {
-            Iterable<MessageTypeTable> iterable = messageTypeDao.findAll();
-            List<MessageTypeTable> messageTypeTableList = StreamSupport.stream(iterable.spliterator(), false)
-                    .collect(Collectors.toList());
+    protected void prepareDatabase() {
+        Iterable<MessageTypeTable> iterable = messageTypeDao.findAll();
+        List<MessageTypeTable> messageTypeTableList = StreamSupport.stream(iterable.spliterator(), false)
+                .collect(Collectors.toList());
 
-            if (messageTypeTableList.isEmpty())
-                createMessageTypeValues();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        if (messageTypeTableList.isEmpty())
+            createMessageTypeValues();
     }
 
     private void createMessageTypeValues() {

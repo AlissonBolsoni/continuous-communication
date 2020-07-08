@@ -1,6 +1,6 @@
 package br.com.alissonbolsoni.continuouscommunication.core.entity;
 
-import javax.persistence.*;
+import java.util.Objects;
 
 public class MessageDestiny {
     private Integer messageDestinyId;
@@ -13,6 +13,12 @@ public class MessageDestiny {
     public MessageDestiny(Integer messageDestinyId, String destiny) {
         this.messageDestinyId = messageDestinyId;
         this.destiny = destiny;
+    }
+
+    public MessageDestiny(Integer messageDestinyId, String destiny, String messageId) {
+        this.messageDestinyId = messageDestinyId;
+        this.destiny = destiny;
+        this.messageId = messageId;
     }
 
     public Integer getMessageDestinyId() {
@@ -37,5 +43,20 @@ public class MessageDestiny {
 
     public void setMessageId(String messageId) {
         this.messageId = messageId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MessageDestiny that = (MessageDestiny) o;
+        return Objects.equals(messageDestinyId, that.messageDestinyId) &&
+                Objects.equals(destiny, that.destiny) &&
+                Objects.equals(messageId, that.messageId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(messageDestinyId, destiny, messageId);
     }
 }

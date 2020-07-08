@@ -36,7 +36,7 @@ public class RegisterMessageUseCaseImpl implements RegisterMessageUseCase {
     }
 
     @Override
-    public Message RegisterMessage(Message message) throws TypeNotExistsException, DateWrongException, RegisterFailException {
+    public Message registerMessage(Message message) throws TypeNotExistsException, DateWrongException, RegisterFailException {
 
         MessageType messageType = this.messageTypeRepository.findByType(message.getMessageType().getType());
         if (messageType == null) throw new TypeNotExistsException("Tipo de mensagem solicitado não existe");

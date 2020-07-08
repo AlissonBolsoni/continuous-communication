@@ -16,13 +16,13 @@ import java.util.Collections;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration {
-    private static String EMAIL = "alisson@alissonbolsoni.com.br";
-    private static String SITE = "https://www.alissonbolsoni.com.br";
-    private static String TITLE = "Alisson Bolsoni";
-    private static String TITLE_LICENSE = "GC License";
-    private static String URL_TERMS_OF_SERVICE = "Terms of Service";
-    private static String LICENCE_URL = SITE;
-    private static String BASE_PACKAGE = "br.com.alissonbolsoni.continuouscommunication.controller";
+    private final static String EMAIL = "alisson@alissonbolsoni.com.br";
+    private final static String SITE = "https://www.alissonbolsoni.com.br";
+    private final static String TITLE = "Alisson Bolsoni";
+    private final static String TITLE_LICENSE = "GC License";
+    private final static String URL_TERMS_OF_SERVICE = "Terms of Service";
+    private final static String LICENCE_URL = SITE;
+    private final static String BASE_PACKAGE = "br.com.alissonbolsoni.continuouscommunication.controller";
 
     @Value("${application.version}")
     private String version;

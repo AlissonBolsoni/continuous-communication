@@ -1,5 +1,7 @@
 package br.com.alissonbolsoni.continuouscommunication.core.entity;
 
+import java.util.Objects;
+
 public class MessageType {
     private Integer messageTypeId;
     private String type;
@@ -26,5 +28,19 @@ public class MessageType {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MessageType that = (MessageType) o;
+        return Objects.equals(messageTypeId, that.messageTypeId) &&
+                Objects.equals(type, that.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(messageTypeId, type);
     }
 }

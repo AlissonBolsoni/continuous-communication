@@ -7,7 +7,7 @@ import java.util.List;
 public interface MessageRepository {
 
     public Message getMessage(String messageId);
-    public Message removeMessage(String messageId);
+    public Message removeMessage(String messageId) throws Exception;
     public Message saveMessage(Message message) throws Exception;
     public Boolean updateMessage(Message message) throws Exception;
 }
