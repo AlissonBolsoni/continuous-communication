@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -26,7 +27,7 @@ class MessageControllerTest {
     private final RegisterMessageUseCase registerMessageUseCase = mock(RegisterMessageUseCase.class);
     private final RemoveMessageUseCase removeMessageUseCase = mock(RemoveMessageUseCase.class);
 
-    private final Message message = new Message("ID", "Text", new MessageType(1, "email"), getDateFuture(), MessageStatus.WAITING, new ArrayList<>());
+    private final Message message = new Message(UUID.randomUUID(), "Text", new MessageType(1, "email"), getDateFuture(), MessageStatus.WAITING, new ArrayList<>());
     private final MessageDto messageDto = new MessageDto("", "Text", new ArrayList(), "email", getDateFuture(), "");
 
     private Date getDateFuture() {
@@ -80,7 +81,7 @@ class MessageControllerTest {
 
     @Test
     void testGetMessageByIdWithSuccess() throws NotFoundException {
-        when(messagesUseCase.getMessageById(anyString())).thenReturn(message);
+        when(messagesUseCase.getMessageById(any())).thenReturn(message);
         MessageController messageController = new MessageController(messagesUseCase, registerMessageUseCase, removeMessageUseCase);
 
         ResponseEntity<MessageDto> messageReturned = messageController.getMessageById("ID");
@@ -92,7 +93,7 @@ class MessageControllerTest {
 
     @Test
     void testGetMessageByIdThrowingNotFoundException() throws NotFoundException {
-        when(messagesUseCase.getMessageById(anyString())).thenThrow(NotFoundException.class);
+        when(messagesUseCase.getMessageById(any())).thenThrow(NotFoundException.class);
 
         MessageController messageController = new MessageController(messagesUseCase, registerMessageUseCase, removeMessageUseCase);
 
@@ -102,7 +103,7 @@ class MessageControllerTest {
 
     @Test
     void testRemoveMessageByIdWithSuccess() throws RemoveFailException {
-        when(removeMessageUseCase.removeMessageById(anyString())).thenReturn(message);
+        when(removeMessageUseCase.removeMessageById(any())).thenReturn(message);
         MessageController messageController = new MessageController(messagesUseCase, registerMessageUseCase, removeMessageUseCase);
 
         ResponseEntity<MessageDto> messageReturned = messageController.removeMessageById("ID");
@@ -114,7 +115,7 @@ class MessageControllerTest {
 
     @Test
     void testRemoveMessageByIdThrowingNotFoundException() throws RemoveFailException {
-        when(removeMessageUseCase.removeMessageById(anyString())).thenThrow(RemoveFailException.class);
+        when(removeMessageUseCase.removeMessageById(any())).thenThrow(RemoveFailException.class);
 
         MessageController messageController = new MessageController(messagesUseCase, registerMessageUseCase, removeMessageUseCase);
 

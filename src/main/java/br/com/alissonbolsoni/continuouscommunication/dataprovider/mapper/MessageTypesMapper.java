@@ -5,14 +5,14 @@ import br.com.alissonbolsoni.continuouscommunication.dataprovider.entity.Message
 
 public class MessageTypesMapper {
 
-    public static MessageTypeTable messageTypeToMessageTypeTable(MessageType messageType) {
+    public static MessageTypeTable messageTypeToMessageTypeTable(final MessageType messageType) {
         return new MessageTypeTable(
                 messageType.getMessageTypeId(),
                 messageType.getType()
         );
     }
 
-    public static MessageType messageTypeTableToMessageType(MessageTypeTable messageTypeTable) {
+    public static MessageType messageTypeTableToMessageType(final MessageTypeTable messageTypeTable) {
         return new MessageType(
                 messageTypeTable.getMessageTypeId(),
                 messageTypeTable.getType()

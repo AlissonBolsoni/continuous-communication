@@ -9,7 +9,7 @@ public class MessageType {
     public MessageType() {
     }
 
-    public MessageType(Integer messageTypeId, String type) {
+    public MessageType(final Integer messageTypeId, final String type) {
         this.messageTypeId = messageTypeId;
         this.type = type;
     }
@@ -18,7 +18,7 @@ public class MessageType {
         return messageTypeId;
     }
 
-    public void setMessageTypeId(Integer messageTypeId) {
+    public void setMessageTypeId(final Integer messageTypeId) {
         this.messageTypeId = messageTypeId;
     }
 
@@ -26,12 +26,12 @@ public class MessageType {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MessageType that = (MessageType) o;

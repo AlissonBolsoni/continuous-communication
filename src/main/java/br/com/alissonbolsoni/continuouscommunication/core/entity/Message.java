@@ -2,13 +2,13 @@ package br.com.alissonbolsoni.continuouscommunication.core.entity;
 
 import br.com.alissonbolsoni.continuouscommunication.core.contants.MessageStatus;
 
-import javax.persistence.Column;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Message {
-    private String messageId;
+    private UUID messageId;
     private String message;
     private MessageType messageType;
     private Date sendTime;
@@ -18,7 +18,7 @@ public class Message {
     public Message() {
     }
 
-    public Message(String messageId, String message, MessageType messageType, Date sendTime, MessageStatus status, List<MessageDestiny> destinies) {
+    public Message(final UUID messageId, final String message, final MessageType messageType, final Date sendTime, final MessageStatus status, final List<MessageDestiny> destinies) {
         this.messageId = messageId;
         this.message = message;
         this.messageType = messageType;
@@ -27,11 +27,11 @@ public class Message {
         this.destinies = destinies;
     }
 
-    public String getMessageId() {
+    public UUID getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(String messageId) {
+    public void setMessageId(final UUID messageId) {
         this.messageId = messageId;
     }
 
@@ -39,7 +39,7 @@ public class Message {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 
@@ -47,7 +47,7 @@ public class Message {
         return messageType;
     }
 
-    public void setMessageType(MessageType messageType) {
+    public void setMessageType(final MessageType messageType) {
         this.messageType = messageType;
     }
 
@@ -55,7 +55,7 @@ public class Message {
         return sendTime;
     }
 
-    public void setSendTime(Date sendTime) {
+    public void setSendTime(final Date sendTime) {
         this.sendTime = sendTime;
     }
 
@@ -63,7 +63,7 @@ public class Message {
         return status;
     }
 
-    public void setStatus(MessageStatus status) {
+    public void setStatus(final MessageStatus status) {
         this.status = status;
     }
 
@@ -71,12 +71,12 @@ public class Message {
         return destinies;
     }
 
-    public void setDestinies(List<MessageDestiny> destinies) {
+    public void setDestinies(final List<MessageDestiny> destinies) {
         this.destinies = destinies;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Message message1 = (Message) o;

@@ -3,6 +3,7 @@ package br.com.alissonbolsoni.continuouscommunication.core.impl;
 import br.com.alissonbolsoni.continuouscommunication.core.UpdateMessageUseCase;
 import br.com.alissonbolsoni.continuouscommunication.core.contants.MessageStatus;
 import br.com.alissonbolsoni.continuouscommunication.core.entity.Message;
+import br.com.alissonbolsoni.continuouscommunication.core.exception.UpdateFailException;
 import br.com.alissonbolsoni.continuouscommunication.core.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,18 +14,21 @@ public class UpdateMessageUseCaseImpl implements UpdateMessageUseCase {
     private final MessageRepository messageRepository;
 
     @Autowired
-    public UpdateMessageUseCaseImpl(MessageRepository messageRepository) {
+    public UpdateMessageUseCaseImpl(final MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
     }
 
     @Override
-    public Boolean updateMessage(Message message) {
+    public void updateMessage(final Message message) throws UpdateFailException {
         try {
             message.setStatus(MessageStatus.SENT);
-            return messageRepository.updateMessage(message);
+            Boolean result = messageRepository.updateMessage(message);
+
+            if (!result)
+                throw new UpdateFailException("Falha ao atualizar o status da mensagem");
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            throw new UpdateFailException("Não foi possível atualizar " + e.getMessage());
         }
     }
 }

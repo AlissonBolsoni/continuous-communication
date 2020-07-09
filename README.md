@@ -1,17 +1,32 @@
 # Continuous Communication
 
 O `Continuous Communication` é uma API para gerenciamento de mensagens que 
-serão enviadas por diversos canais, como por exemplo `E-MAIL`, `SMS`, `PUSH` e `WHATSAPP`.
-O envio das mensagens salvas será através de um serviço paralelo de mensageria.
+serão enviadas por diversos canais, como por exemplo `E-MAIL`, `SMS`, `PUSH` e `WHATSAPP`.  
+O envio das mensagens salvas será feito através de um serviço paralelo de mensageria.  
+A comunicação com esse serviço será feita através do protocolo AMQP. O serviço AMQP que será utilizado é o `RabbitMQ` 
+e as mensagens serão enviadas para um ***Exchange*** do tipo ***Topic*** que irá distribuir as mensagens para as filas usando ***Routing Keys***.  
+O consumo das mensagens enviadas para o `RabbitMQ` será consumido através de um ***Worker***, 
+que no caso poderia ser separado em uma outra aplicação para garantir uma maior escalabilidade e segregação de reponsabilidades.
 
-## Entradas Da API
+## Tecnologias Utilizadas
+- Spring Boot
+- MySQL
+- Swagger
+- JPA
+- Hibernate
+- Docker
+- JUnit5
+- Mockito
+- RabbitMQ
+
+### Comunicação com a API
+
 O `Continuous Communication` pussui um grupo de entradas, que é o controlador de mensagens.  
 Esse controlador possui três entradas, que estão listadas abaixo.
 >1. (**GET**) Consulta através do Id da mensagem que salva no banco de dados (***/message/{id}***)
 >2. (**DELETE**) Remove uma mensagem através do Id (***/message/{id}***)
 >3. (**POST**) Salva uma nova mensagem no banco de dados (***/message/register***)
 
-### Comunicação com a API
 >1. ***Buscar Mensagem Pelo Id***
 #### Envio
 ```curl
@@ -93,16 +108,13 @@ curl -X POST \
 }
 ```
 
-## Tecnologias Utilizadas
-- Spring Boot
-- MySQL
-- Swagger
-- JPA
-- Hibernate
-- Docker
-- JUnit5
-- Mockito
-- RabbitMQ
+## Arquitetura
+A aplicação foi dividida em cinco módulos.  
+>1. `Configuration` - Módulo para configurações dos `Beans` como ***RabbitMQ, Swagger***  
+>2. `Controller` - Módulo que contém os `Entry Points` do sistema, os `DTOs` e os mappers dos DTOs para os objetos do `CORE`
+>3. `Core` - Módulo que contém toda a régra de negócio e totalmente isolado dos outros módulos.
+>4. `Data Provider` - Módulo responsável por comunicar com o banco de dádos e outros serviços.
+>5. `Worker` - Módulo reponsável por receber as mensagens vindas do RabbitMQ.
 
 ## Executar a aplicação
 Estando na raiz do projeto utilize os comandos abaixo `docker-compose up --build -d` para executar o **Docker Compose** que contém o banco de dados
@@ -113,9 +125,10 @@ Com o banco de dados executando basta executar o projeto.
     Para iniciar o `Docker` com o banco de dados `MySQL` e o sevidor `RabbitMQ`.
 >2. **mvn clean install**  
     Para fazer o build da aplicação e execução de testes unitários.
->3. **mvn spring-boot:run**  
-    Comando para iniciar a aplicação.
-
+>3. **mvn clean install**  
+    Comando para rodar os testes e gerar o jar.
+>4. **mvn spring-boot:run**  
+     Comando para iniciar a aplicação.
 
 ## Swagger
 Para testar a aplicação com o `Swagger` basta estar com o projeto executando e acessar a url `http://localhost:9999/swagger-ui.html`

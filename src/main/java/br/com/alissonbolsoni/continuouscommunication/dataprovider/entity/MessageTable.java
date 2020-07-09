@@ -1,5 +1,7 @@
 package br.com.alissonbolsoni.continuouscommunication.dataprovider.entity;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
@@ -7,32 +9,37 @@ import java.util.UUID;
 @Entity
 @Table(name = "messages")
 public class MessageTable {
+
     @Id
-    @Column(nullable = true)
-    private final String messageId;
+    @Column
+    @Type(type = "uuid-char")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID messageId;
 
     @Column(nullable = false)
-    private final String message;
+    private String message;
 
     @ManyToOne
     @JoinColumn(name = "message_type_id")
-    private final MessageTypeTable messageType;
+    private MessageTypeTable messageType;
 
     @Column(nullable = false)
-    private final Date sendTime;
+    private Date sendTime;
 
     @Column(nullable = false)
-    private final Integer status;
+    private Integer status;
 
-    public MessageTable(String message, MessageTypeTable messageType, Date sendTime, Integer status) {
-        this.messageId = UUID.randomUUID().toString();
+    public MessageTable() {
+    }
+
+    public MessageTable(final String message, final MessageTypeTable messageType, final Date sendTime, final Integer status) {
         this.message = message;
         this.messageType = messageType;
         this.sendTime = sendTime;
         this.status = status;
     }
 
-    public MessageTable(String messageId, String message, MessageTypeTable messageType, Date sendTime, Integer status) {
+    public MessageTable(final UUID messageId, final String message, final MessageTypeTable messageType, final Date sendTime, final Integer status) {
         this.messageId = messageId;
         this.message = message;
         this.messageType = messageType;
@@ -40,7 +47,7 @@ public class MessageTable {
         this.status = status;
     }
 
-    public String getMessageId() {
+    public UUID getMessageId() {
         return messageId;
     }
 

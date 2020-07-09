@@ -10,14 +10,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MessageTypeRepositoryImpl implements MessageTypeRepository {
 
-    private MessageTypeDao messageTypeDao;
+    private final MessageTypeDao messageTypeDao;
 
-    public MessageTypeRepositoryImpl(MessageTypeDao messageTypeDao) {
+    public MessageTypeRepositoryImpl(final MessageTypeDao messageTypeDao) {
         this.messageTypeDao = messageTypeDao;
     }
 
     @Override
-    public MessageType findByType(String type) {
+    public MessageType findByType(final String type) {
         MessageTypeTable messageTypeTable = this.messageTypeDao.findByTypeIgnoreCase(type);
 
         return MessageTypesMapper.messageTypeTableToMessageType(messageTypeTable);

@@ -6,11 +6,11 @@ import java.util.Objects;
 
 public class MessageDto {
 
-    public MessageDto(String message) {
+    public MessageDto(final String message) {
         this.message = message;
     }
 
-    public MessageDto(String uuid, String message, List<String> destiny, String messageType, Date sendTime, String messageStatus) {
+    public MessageDto(final String uuid, final String message, final List<String> destiny, final String messageType, final Date sendTime, final String messageStatus) {
         this.uuid = uuid;
         this.message = message;
         this.destiny = destiny;

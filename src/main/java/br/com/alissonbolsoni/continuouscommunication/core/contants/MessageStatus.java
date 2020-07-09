@@ -4,11 +4,11 @@ public enum MessageStatus {
     WAITING(1), SENT(2);
     private Integer status;
 
-    MessageStatus(Integer status) {
+    MessageStatus(final Integer status) {
         this.status = status;
     }
 
-    public static MessageStatus findByValue(Integer status){
+    public static MessageStatus findByValue(final Integer status){
         for (MessageStatus ms : MessageStatus.values()) {
             if (ms.status.equals(status)) return ms;
         }

@@ -8,13 +8,15 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mockito;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 class MessagesUseCaseImplTest {
 
-    private final static String MESSAGE_ID = "MESSAGE_ID";
+    private final static UUID MESSAGE_ID = UUID.randomUUID();
     private final static String MESSAGE = "MESSAGE";
     private final MessageRepository messageRepository = Mockito.mock(MessageRepository.class);
     private final Message messageSuccess = new Message(MESSAGE_ID, MESSAGE, null, null, null, null);

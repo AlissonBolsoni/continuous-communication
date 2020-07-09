@@ -7,18 +7,20 @@ import br.com.alissonbolsoni.continuouscommunication.core.repository.MessageRepo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class RemoveMessageUseCaseImpl implements RemoveMessageUseCase {
 
     private final MessageRepository messageRepository;
 
     @Autowired
-    public RemoveMessageUseCaseImpl(MessageRepository messageRepository) {
+    public RemoveMessageUseCaseImpl(final MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
     }
 
     @Override
-    public Message removeMessageById(String id) throws RemoveFailException {
+    public Message removeMessageById(final UUID id) throws RemoveFailException {
         try {
             Message message = messageRepository.removeMessage(id);
 

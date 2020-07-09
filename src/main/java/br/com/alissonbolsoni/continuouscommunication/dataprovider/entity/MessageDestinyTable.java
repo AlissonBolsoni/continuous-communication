@@ -9,15 +9,18 @@ public class MessageDestinyTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = true)
-    private final Integer messageDestinyId;
+    private Integer messageDestinyId;
 
     @Column(nullable = false)
-    private final String destiny;
+    private String destiny;
 
     @Column(nullable = false)
-    private final String messageId;
+    private String messageId;
 
-    public MessageDestinyTable(Integer messageDestinyId, String destiny, String messageId) {
+    public MessageDestinyTable() {
+    }
+
+    public MessageDestinyTable(final Integer messageDestinyId, final String destiny, final String messageId) {
         this.messageDestinyId = messageDestinyId;
         this.destiny = destiny;
         this.messageId = messageId;

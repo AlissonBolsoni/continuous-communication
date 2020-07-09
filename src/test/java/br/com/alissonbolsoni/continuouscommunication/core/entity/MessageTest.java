@@ -6,12 +6,13 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MessageTest {
 
-    private final String messageId = "ID";
+    private final UUID messageId = UUID.randomUUID();
     private final String messageText = "message";
     private final MessageType messageType = new MessageType(1, "email");
     private final Date sendTime = new Date();

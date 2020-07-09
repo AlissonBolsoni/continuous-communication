@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 import static br.com.alissonbolsoni.continuouscommunication.controller.MessageController.PATH;
 
 @RestController
@@ -26,14 +28,14 @@ public class MessageController {
     private final RemoveMessageUseCase removeMessageUseCase;
 
     @Autowired
-    public MessageController(MessagesUseCase messagesUseCase, RegisterMessageUseCase registerMessageUseCase, RemoveMessageUseCase removeMessageUseCase) {
+    public MessageController(final MessagesUseCase messagesUseCase, final RegisterMessageUseCase registerMessageUseCase, final RemoveMessageUseCase removeMessageUseCase) {
         this.messagesUseCase = messagesUseCase;
         this.registerMessageUseCase = registerMessageUseCase;
         this.removeMessageUseCase = removeMessageUseCase;
     }
 
     @PostMapping(PATH_REGISTER)
-    public ResponseEntity<MessageDto> registerMessage(@RequestBody MessageDto messageDto) {
+    public ResponseEntity<MessageDto> registerMessage(@RequestBody final MessageDto messageDto) {
 
         try {
             Message message = MessagesMapper.messageDtoToMessageEntity(messageDto);
@@ -62,9 +64,9 @@ public class MessageController {
     }
 
     @GetMapping(value = PATH_MESSAGE_BY_ID)
-    public ResponseEntity<MessageDto> getMessageById(@PathVariable String id) {
+    public ResponseEntity<MessageDto> getMessageById(@PathVariable final String id) {
         try {
-            Message messageById = messagesUseCase.getMessageById(id);
+            Message messageById = messagesUseCase.getMessageById(UUID.fromString(id));
 
             return new ResponseEntity(
                     MessagesMapper.messageEntityToMessageDto(messageById),
@@ -79,9 +81,9 @@ public class MessageController {
     }
 
     @DeleteMapping(value = PATH_MESSAGE_BY_ID)
-    public ResponseEntity<MessageDto> removeMessageById(@PathVariable String id) {
+    public ResponseEntity<MessageDto> removeMessageById(@PathVariable final String id) {
         try {
-            Message messageById = removeMessageUseCase.removeMessageById(id);
+            Message messageById = removeMessageUseCase.removeMessageById(UUID.fromString(id));
             return new ResponseEntity(
                     MessagesMapper.messageEntityToMessageDto(messageById),
                     HttpStatus.OK

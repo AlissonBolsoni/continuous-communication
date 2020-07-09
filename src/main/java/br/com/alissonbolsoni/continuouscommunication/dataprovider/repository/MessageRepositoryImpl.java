@@ -11,6 +11,7 @@ import br.com.alissonbolsoni.continuouscommunication.dataprovider.mapper.Message
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class MessageRepositoryImpl implements MessageRepository {
@@ -18,35 +19,35 @@ public class MessageRepositoryImpl implements MessageRepository {
     private final MessageDao messageDao;
     private final MessageDestinyDao messageDestinyDao;
 
-    public MessageRepositoryImpl(MessageDao messageDao, MessageDestinyDao messageDestinyDao) {
+    public MessageRepositoryImpl(final MessageDao messageDao, final MessageDestinyDao messageDestinyDao) {
         this.messageDao = messageDao;
         this.messageDestinyDao = messageDestinyDao;
     }
 
     @Override
-    public Message getMessage(String messageId) {
-        MessageTable byMessageId = messageDao.findByMessageId(messageId);
-        List<MessageDestinyTable> destinies = messageDestinyDao.findByMessageId(messageId);
+    public Message getMessage(final UUID messageId) {
+        MessageTable byMessageId = messageDao.findByMessageId(messageId.toString());
+        List<MessageDestinyTable> destinies = messageDestinyDao.findByMessageId(messageId.toString());
         Message message = MessagesMapper.messageTableToMessage(byMessageId);
         message.setDestinies(MessageDestinyMapper.tableToEntity(destinies));
         return message;
     }
 
     @Override
-    public Message removeMessage(String messageId) {
+    public Message removeMessage(final UUID messageId) {
         Message message = getMessage(messageId);
-        messageDao.deleteById(messageId);
+        messageDao.deleteById(messageId.toString());
         return message;
     }
 
     @Override
-    public Message saveMessage(Message message) {
+    public Message saveMessage(final Message message) {
         MessageTable save = messageDao.save(MessagesMapper.messageToMessageTable(message));
         return MessagesMapper.messageTableToMessage(save);
     }
 
     @Override
-    public Boolean updateMessage(Message message) {
+    public Boolean updateMessage(final Message message) {
         try {
             MessageTable messageTable = MessagesMapper.messageToUpdateMessageTable(message);
             messageDao.save(messageTable);

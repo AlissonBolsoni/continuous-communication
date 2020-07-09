@@ -10,12 +10,12 @@ public class MessageDestiny {
     public MessageDestiny() {
     }
 
-    public MessageDestiny(Integer messageDestinyId, String destiny) {
+    public MessageDestiny(final Integer messageDestinyId, final String destiny) {
         this.messageDestinyId = messageDestinyId;
         this.destiny = destiny;
     }
 
-    public MessageDestiny(Integer messageDestinyId, String destiny, String messageId) {
+    public MessageDestiny(final Integer messageDestinyId, final String destiny, final String messageId) {
         this.messageDestinyId = messageDestinyId;
         this.destiny = destiny;
         this.messageId = messageId;
@@ -25,7 +25,7 @@ public class MessageDestiny {
         return messageDestinyId;
     }
 
-    public void setMessageDestinyId(Integer messageDestinyId) {
+    public void setMessageDestinyId(final Integer messageDestinyId) {
         this.messageDestinyId = messageDestinyId;
     }
 
@@ -33,7 +33,7 @@ public class MessageDestiny {
         return destiny;
     }
 
-    public void setDestiny(String destiny) {
+    public void setDestiny(final String destiny) {
         this.destiny = destiny;
     }
 
@@ -41,12 +41,12 @@ public class MessageDestiny {
         return messageId;
     }
 
-    public void setMessageId(String messageId) {
+    public void setMessageId(final String messageId) {
         this.messageId = messageId;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MessageDestiny that = (MessageDestiny) o;

@@ -8,13 +8,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mockito;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class RemoveMessageUseCaseImplTest {
 
-    private final static String MESSAGE_ID = "MESSAGE_ID";
+    private final static UUID MESSAGE_ID = UUID.randomUUID();
     private final static String MESSAGE = "MESSAGE";
     private final MessageRepository messageRepository = mock(MessageRepository.class);
     private final Message messageSuccess = new Message(MESSAGE_ID, MESSAGE, null, null, null, null);
@@ -45,7 +47,7 @@ class RemoveMessageUseCaseImplTest {
 
     @Test
     void testRemoveMessageWithThrowException() throws Exception {
-        when(messageRepository.removeMessage(anyString())).thenThrow(Exception.class);
+        when(messageRepository.removeMessage(any())).thenThrow(Exception.class);
         RemoveMessageUseCase useCase = new RemoveMessageUseCaseImpl(messageRepository);
 
         assertThrows(RemoveFailException.class,() -> useCase.removeMessageById(MESSAGE_ID));

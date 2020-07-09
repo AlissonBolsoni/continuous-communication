@@ -26,17 +26,24 @@ public class RegisterMessageUseCaseImpl implements RegisterMessageUseCase {
     private final MessageRepository messageRepository;
     private final MessageDestinyRepository messageDestinyRepository;
     private final AmqpSender amqpSender;
+    private final ObjectMapper objectMapper;
 
     @Autowired
-    public RegisterMessageUseCaseImpl(MessageTypeRepository messageTypeRepository, MessageRepository messageRepository, MessageDestinyRepository messageDestinyRepository, AmqpSender amqpSender) {
+    public RegisterMessageUseCaseImpl(
+            final MessageTypeRepository messageTypeRepository,
+            final MessageRepository messageRepository,
+            final MessageDestinyRepository messageDestinyRepository,
+            final AmqpSender amqpSender,
+            final ObjectMapper objectMapper) {
         this.messageTypeRepository = messageTypeRepository;
         this.messageRepository = messageRepository;
         this.messageDestinyRepository = messageDestinyRepository;
         this.amqpSender = amqpSender;
+        this.objectMapper = objectMapper;
     }
 
     @Override
-    public Message registerMessage(Message message) throws TypeNotExistsException, DateWrongException, RegisterFailException {
+    public Message registerMessage(final Message message) throws TypeNotExistsException, DateWrongException, RegisterFailException {
 
         MessageType messageType = this.messageTypeRepository.findByType(message.getMessageType().getType());
         if (messageType == null) throw new TypeNotExistsException("Tipo de mensagem solicitado não existe");
@@ -53,7 +60,6 @@ public class RegisterMessageUseCaseImpl implements RegisterMessageUseCase {
             messageToReturn.setMessageType(messageType);
 
             if (messageType.getType().equals("email")){
-                ObjectMapper objectMapper = new ObjectMapper();
                 amqpSender.sendMessage(RoutingKeys.ROUTING_KEY_EMAIL, objectMapper.writeValueAsString(messageToReturn));
             }
             return messageToReturn;

@@ -11,11 +11,7 @@ import java.util.stream.Collectors;
 
 public class MessagesMapper {
 
-    public static Page<MessageTable> pageMessageToPageMessageTable(final Page<Message> messages){
-        return messages.map(MessagesMapper::messageToMessageTable);
-    }
-
-    public static MessageTable messageToMessageTable(Message message) {
+    public static MessageTable messageToMessageTable(final Message message) {
         return new MessageTable(
                 message.getMessage(),
                 MessageTypesMapper.messageTypeToMessageTypeTable(message.getMessageType()),
@@ -24,7 +20,7 @@ public class MessagesMapper {
         );
     }
 
-    public static MessageTable messageToUpdateMessageTable(Message message) {
+    public static MessageTable messageToUpdateMessageTable(final Message message) {
         return new MessageTable(
                 message.getMessageId(),
                 message.getMessage(),
@@ -34,14 +30,7 @@ public class MessagesMapper {
         );
     }
 
-    public static List<Message> pageMessageTableToPageMessage(final List<MessageTable> messages){
-        return messages
-                .stream()
-                .parallel()
-                .map(MessagesMapper::messageTableToMessage).collect(Collectors.toList());
-    }
-
-    public static Message messageTableToMessage(MessageTable message) {
+    public static Message messageTableToMessage(final MessageTable message) {
         return new Message(
                 message.getMessageId(),
                 message.getMessage(),

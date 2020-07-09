@@ -13,13 +13,13 @@ public class AmqpSenderImpl implements AmqpSender {
     private final TopicExchange topicExchange;
 
     @Autowired
-    public AmqpSenderImpl(RabbitTemplate rabbit, TopicExchange topicExchange) {
+    public AmqpSenderImpl(final RabbitTemplate rabbit, final TopicExchange topicExchange) {
         this.rabbit = rabbit;
         this.topicExchange = topicExchange;
     }
 
     @Override
-    public void sendMessage(String routingKey, String message){
+    public void sendMessage(final String routingKey, final String message){
         rabbit.convertAndSend(
                 topicExchange.getName(),
                 routingKey,

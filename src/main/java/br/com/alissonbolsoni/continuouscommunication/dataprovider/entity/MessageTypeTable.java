@@ -9,12 +9,15 @@ public class MessageTypeTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = true)
-    private final Integer messageTypeId;
+    private Integer messageTypeId;
 
     @Column(nullable = false)
-    private final String type;
+    private String type;
 
-    public MessageTypeTable(Integer messageTypeId, String type) {
+    public MessageTypeTable() {
+    }
+
+    public MessageTypeTable(final Integer messageTypeId, final String type) {
         this.messageTypeId = messageTypeId;
         this.type = type;
     }

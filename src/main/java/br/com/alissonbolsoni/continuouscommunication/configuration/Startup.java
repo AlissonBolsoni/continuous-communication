@@ -16,7 +16,7 @@ public class Startup {
     private final MessageTypeDao messageTypeDao;
 
     @Autowired
-    public Startup(MessageTypeDao messageTypeDao) {
+    public Startup(final MessageTypeDao messageTypeDao) {
         this.messageTypeDao = messageTypeDao;
     }
 

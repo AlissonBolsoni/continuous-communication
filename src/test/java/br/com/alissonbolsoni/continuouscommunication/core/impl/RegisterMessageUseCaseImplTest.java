@@ -12,13 +12,11 @@ import br.com.alissonbolsoni.continuouscommunication.core.repository.MessageDest
 import br.com.alissonbolsoni.continuouscommunication.core.repository.MessageRepository;
 import br.com.alissonbolsoni.continuouscommunication.core.repository.MessageTypeRepository;
 import br.com.alissonbolsoni.continuouscommunication.core.services.AmqpSender;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -31,8 +29,9 @@ class RegisterMessageUseCaseImplTest {
     private final MessageRepository messageRepository = mock(MessageRepository.class);
     private final MessageDestinyRepository messageDestinyRepository = mock(MessageDestinyRepository.class);
     private final AmqpSender amqpSender = mock(AmqpSender.class);
+    private final ObjectMapper mapper = mock(ObjectMapper.class);
 
-    private final static String MESSAGE_ID = "MESSAGE_ID";
+    private final static UUID MESSAGE_ID = UUID.randomUUID();
     private final static String MESSAGE = "MESSAGE";
     private final List<MessageDestiny> list = new ArrayList();
     private final MessageType messageType = new MessageType(1, "type");
@@ -65,7 +64,8 @@ class RegisterMessageUseCaseImplTest {
                 messageTypeRepository,
                 messageRepository,
                 messageDestinyRepository,
-                amqpSender);
+                amqpSender,
+                mapper);
 
         list.add(new MessageDestiny(null, "Alisson"));
         message.setDestinies(list);
@@ -83,7 +83,8 @@ class RegisterMessageUseCaseImplTest {
                 messageTypeRepository,
                 messageRepository,
                 messageDestinyRepository,
-                amqpSender);
+                amqpSender,
+                mapper);
 
         list.add(new MessageDestiny(null, "Alisson"));
         message.setDestinies(list);
@@ -103,7 +104,8 @@ class RegisterMessageUseCaseImplTest {
                 messageTypeRepository,
                 messageRepository,
                 messageDestinyRepository,
-                amqpSender);
+                amqpSender,
+                mapper);
 
         list.add(new MessageDestiny(null, "Alisson"));
         message.setDestinies(list);
@@ -125,7 +127,8 @@ class RegisterMessageUseCaseImplTest {
                 messageTypeRepository,
                 messageRepository,
                 messageDestinyRepository,
-                amqpSender);
+                amqpSender,
+                mapper);
 
         list.add(new MessageDestiny(null, "Alisson"));
         message.setDestinies(list);
@@ -149,7 +152,8 @@ class RegisterMessageUseCaseImplTest {
                 messageTypeRepository,
                 messageRepository,
                 messageDestinyRepository,
-                amqpSender);
+                amqpSender,
+                mapper);
 
         message.setDestinies(list);
 
@@ -171,7 +175,8 @@ class RegisterMessageUseCaseImplTest {
                 messageTypeRepository,
                 messageRepository,
                 messageDestinyRepository,
-                amqpSender);
+                amqpSender,
+                mapper);
 
         message.setDestinies(list);
 

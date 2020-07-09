@@ -2,17 +2,18 @@ package br.com.alissonbolsoni.continuouscommunication.core.impl;
 
 import br.com.alissonbolsoni.continuouscommunication.core.UpdateMessageUseCase;
 import br.com.alissonbolsoni.continuouscommunication.core.entity.Message;
+import br.com.alissonbolsoni.continuouscommunication.core.exception.UpdateFailException;
 import br.com.alissonbolsoni.continuouscommunication.core.repository.MessageRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class UpdateMessageUseCaseImplTest {
-    private final static String MESSAGE_ID = "MESSAGE_ID";
+    private final static UUID MESSAGE_ID = UUID.randomUUID();
     private final static String MESSAGE = "MESSAGE";
     private final MessageRepository messageRepository = mock(MessageRepository.class);
     private final Message message = new Message(MESSAGE_ID, MESSAGE, null, null, null, null);
@@ -22,9 +23,9 @@ class UpdateMessageUseCaseImplTest {
         when(messageRepository.updateMessage(message)).thenReturn(true);
 
         UpdateMessageUseCase useCase = new UpdateMessageUseCaseImpl(messageRepository);
-        Boolean success = useCase.updateMessage(message);
+        useCase.updateMessage(message);
 
-        assertTrue(success);
+        verify(messageRepository.updateMessage(any()));
     }
 
     @Test
@@ -32,9 +33,7 @@ class UpdateMessageUseCaseImplTest {
         when(messageRepository.updateMessage(message)).thenReturn(false);
 
         UpdateMessageUseCase useCase = new UpdateMessageUseCaseImpl(messageRepository);
-        Boolean success = useCase.updateMessage(message);
-
-        assertFalse(success);
+        assertThrows(UpdateFailException.class, () -> useCase.updateMessage(message));
     }
 
     @Test
@@ -42,6 +41,6 @@ class UpdateMessageUseCaseImplTest {
         when(messageRepository.updateMessage(Mockito.any())).thenThrow(Exception.class);
         UpdateMessageUseCase useCase = new UpdateMessageUseCaseImpl(messageRepository);
 
-        assertFalse(useCase.updateMessage(message));
+        assertThrows(UpdateFailException.class, () -> useCase.updateMessage(message));
     }
 }

@@ -10,11 +10,12 @@ import br.com.alissonbolsoni.continuouscommunication.dataprovider.entity.Message
 import br.com.alissonbolsoni.continuouscommunication.dataprovider.mapper.MessageDestinyMapper;
 import br.com.alissonbolsoni.continuouscommunication.dataprovider.mapper.MessagesMapper;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Spliterator;
-import java.util.Spliterators;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Repository
@@ -22,17 +23,17 @@ public class MessageDestinyRepositoryImpl implements MessageDestinyRepository {
 
     private final MessageDestinyDao messageDestinyDao;
 
-    public MessageDestinyRepositoryImpl(MessageDestinyDao messageDestinyDao) {
+    public MessageDestinyRepositoryImpl(final MessageDestinyDao messageDestinyDao) {
         this.messageDestinyDao = messageDestinyDao;
     }
 
     @Override
-    public List<MessageDestiny> saveMessageDestinies(List<MessageDestiny> messageDestinies, String messageId) throws Exception {
+    public List<MessageDestiny> saveMessageDestinies(final List<MessageDestiny> messageDestinies, final UUID messageId) throws Exception {
 
         List<MessageDestinyTable> messageDestinyTables = MessageDestinyMapper.toTable(messageDestinies, messageId);
 
         Iterable<MessageDestinyTable> messageDestinies1 = messageDestinyDao.saveAll(messageDestinyTables);
-        List<MessageDestinyTable> list = ImmutableList.copyOf(messageDestinies1);
+        List<MessageDestinyTable> list = Lists.newArrayList(messageDestinies1);
 
         return MessageDestinyMapper.tableToEntity(list);
     }
