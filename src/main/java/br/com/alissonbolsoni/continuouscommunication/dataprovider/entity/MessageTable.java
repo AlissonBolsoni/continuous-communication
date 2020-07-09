@@ -1,9 +1,5 @@
 package br.com.alissonbolsoni.continuouscommunication.dataprovider.entity;
 
-import br.com.alissonbolsoni.continuouscommunication.core.entity.MessageType;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
@@ -13,23 +9,20 @@ import java.util.UUID;
 public class MessageTable {
     @Id
     @Column(nullable = true)
-    private String messageId;
+    private final String messageId;
 
     @Column(nullable = false)
-    private String message;
+    private final String message;
 
     @ManyToOne
     @JoinColumn(name = "message_type_id")
-    private MessageTypeTable messageType;
+    private final MessageTypeTable messageType;
 
     @Column(nullable = false)
-    private Date sendTime;
+    private final Date sendTime;
 
     @Column(nullable = false)
-    private Integer status;
-
-    public MessageTable() {
-    }
+    private final Integer status;
 
     public MessageTable(String message, MessageTypeTable messageType, Date sendTime, Integer status) {
         this.messageId = UUID.randomUUID().toString();

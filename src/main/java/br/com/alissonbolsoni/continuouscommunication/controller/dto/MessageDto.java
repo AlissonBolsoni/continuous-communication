@@ -2,11 +2,9 @@ package br.com.alissonbolsoni.continuouscommunication.controller.dto;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class MessageDto {
-
-    public MessageDto() {
-    }
 
     public MessageDto(String message) {
         this.message = message;

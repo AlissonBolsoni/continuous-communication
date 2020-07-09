@@ -11,18 +11,6 @@ import java.util.stream.Collectors;
 
 public class MessagesMapper {
 
-    public static List<MessageDto> pageMessageToPageMessageDto(final List<Message> messages) {
-        List<MessageDto> dtos = new ArrayList<>();
-        for (int i = 0; i < messages.size(); i++) {
-            dtos.add(
-                    MessagesMapper.messageEntityToMessageDto(messages.get(i))
-            );
-        }
-
-        return dtos;
-//        return messages.stream().map(MessagesMapper::messageEntityToMessageDto).collect(Collectors.toList());
-    }
-
     public static MessageDto messageEntityToMessageDto(Message message) {
         return new MessageDto(
                 message.getMessageId(),

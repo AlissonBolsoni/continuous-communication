@@ -3,7 +3,6 @@ package br.com.alissonbolsoni.continuouscommunication.worker;
 import br.com.alissonbolsoni.continuouscommunication.core.UpdateMessageUseCase;
 import br.com.alissonbolsoni.continuouscommunication.core.contants.RoutingKeys;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +31,7 @@ public class EmailWorker {
     }
 
     @RabbitListener(queues = {Q_EMAIL_WORKER})
-    protected void EmailWorkerConsumer(Message message, Channel channel) throws IOException {
+    protected void EmailWorkerConsumer(Message message) throws IOException {
         String body = new String(message.getBody());
         System.out.println(body);
         ObjectMapper objectMapper = new ObjectMapper();
