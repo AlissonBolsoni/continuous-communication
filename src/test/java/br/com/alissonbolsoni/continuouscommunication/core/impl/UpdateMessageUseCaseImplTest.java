@@ -19,16 +19,6 @@ class UpdateMessageUseCaseImplTest {
     private final Message message = new Message(MESSAGE_ID, MESSAGE, null, null, null, null);
 
     @Test
-    void testUpdateMessageWithSuccess() throws Exception {
-        when(messageRepository.updateMessage(message)).thenReturn(true);
-
-        UpdateMessageUseCase useCase = new UpdateMessageUseCaseImpl(messageRepository);
-        useCase.updateMessage(message);
-
-        verify(messageRepository.updateMessage(any()));
-    }
-
-    @Test
     void testUpdateMessageWithAnswerNull() throws Exception {
         when(messageRepository.updateMessage(message)).thenReturn(false);
 

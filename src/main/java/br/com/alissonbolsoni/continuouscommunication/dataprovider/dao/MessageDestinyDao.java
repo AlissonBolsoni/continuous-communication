@@ -1,6 +1,5 @@
 package br.com.alissonbolsoni.continuouscommunication.dataprovider.dao;
 
-import br.com.alissonbolsoni.continuouscommunication.core.entity.MessageDestiny;
 import br.com.alissonbolsoni.continuouscommunication.dataprovider.entity.MessageDestinyTable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

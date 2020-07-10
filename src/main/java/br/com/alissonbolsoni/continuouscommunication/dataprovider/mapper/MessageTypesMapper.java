@@ -13,6 +13,8 @@ public class MessageTypesMapper {
     }
 
     public static MessageType messageTypeTableToMessageType(final MessageTypeTable messageTypeTable) {
+        if (messageTypeTable == null) return null;
+
         return new MessageType(
                 messageTypeTable.getMessageTypeId(),
                 messageTypeTable.getType()

@@ -26,18 +26,22 @@ public class MessageRepositoryImpl implements MessageRepository {
 
     @Override
     public Message getMessage(final UUID messageId) {
-        MessageTable byMessageId = messageDao.findByMessageId(messageId.toString());
-        List<MessageDestinyTable> destinies = messageDestinyDao.findByMessageId(messageId.toString());
-        Message message = MessagesMapper.messageTableToMessage(byMessageId);
+        MessageTable byMessageId = messageDao.findByMessageId(messageId);
+        return getMessageFromTable(byMessageId);
+    }
+
+    private Message getMessageFromTable(final MessageTable messageTable) {
+        List<MessageDestinyTable> destinies = messageDestinyDao.findByMessageId(messageTable.getMessageId().toString());
+        Message message = MessagesMapper.messageTableToMessage(messageTable);
         message.setDestinies(MessageDestinyMapper.tableToEntity(destinies));
         return message;
     }
 
     @Override
     public Message removeMessage(final UUID messageId) {
-        Message message = getMessage(messageId);
-        messageDao.deleteById(messageId.toString());
-        return message;
+        MessageTable byMessageId = messageDao.findByMessageId(messageId);
+        messageDao.delete(byMessageId);
+        return getMessageFromTable(byMessageId);
     }
 
     @Override

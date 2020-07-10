@@ -19,4 +19,9 @@ class MessageTypeTableTest {
         assertEquals(type, messageTypeTable.getType());
     }
 
+    @Test
+    void testNotNull(){
+        assertNotNull(new MessageTypeTable());
+    }
+
 }

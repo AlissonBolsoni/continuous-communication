@@ -1,11 +1,9 @@
 package br.com.alissonbolsoni.continuouscommunication.controller.mapper;
 
 import br.com.alissonbolsoni.continuouscommunication.core.entity.MessageDestiny;
-import br.com.alissonbolsoni.continuouscommunication.dataprovider.entity.MessageDestinyTable;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class MessageDestinyMapper {
 

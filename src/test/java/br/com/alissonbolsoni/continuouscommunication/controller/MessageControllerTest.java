@@ -1,6 +1,7 @@
 package br.com.alissonbolsoni.continuouscommunication.controller;
 
 import br.com.alissonbolsoni.continuouscommunication.controller.dto.MessageDto;
+import br.com.alissonbolsoni.continuouscommunication.controller.dto.MessageRequestDto;
 import br.com.alissonbolsoni.continuouscommunication.core.MessagesUseCase;
 import br.com.alissonbolsoni.continuouscommunication.core.RegisterMessageUseCase;
 import br.com.alissonbolsoni.continuouscommunication.core.RemoveMessageUseCase;
@@ -28,7 +29,7 @@ class MessageControllerTest {
     private final RemoveMessageUseCase removeMessageUseCase = mock(RemoveMessageUseCase.class);
 
     private final Message message = new Message(UUID.randomUUID(), "Text", new MessageType(1, "email"), getDateFuture(), MessageStatus.WAITING, new ArrayList<>());
-    private final MessageDto messageDto = new MessageDto("", "Text", new ArrayList(), "email", getDateFuture(), "");
+    private final MessageRequestDto messageDto = new MessageRequestDto("Text", new ArrayList(), "email", getDateFuture());
 
     private Date getDateFuture() {
         Calendar instance = Calendar.getInstance();
@@ -44,7 +45,7 @@ class MessageControllerTest {
 
         ResponseEntity<MessageDto> registerMessage = messageController.registerMessage(messageDto);
         assertEquals(HttpStatus.OK, registerMessage.getStatusCode());
-        assertEquals(message.getMessageId(), registerMessage.getBody().getUuid());
+        assertEquals(message.getMessageId().toString(), registerMessage.getBody().getUuid().toString());
         assertEquals(message.getMessage(), registerMessage.getBody().getMessage());
         assertEquals(message.getMessageType().getType(), registerMessage.getBody().getMessageType());
     }
@@ -84,9 +85,9 @@ class MessageControllerTest {
         when(messagesUseCase.getMessageById(any())).thenReturn(message);
         MessageController messageController = new MessageController(messagesUseCase, registerMessageUseCase, removeMessageUseCase);
 
-        ResponseEntity<MessageDto> messageReturned = messageController.getMessageById("ID");
+        ResponseEntity<MessageDto> messageReturned = messageController.getMessageById(UUID.randomUUID().toString());
         assertEquals(HttpStatus.OK, messageReturned.getStatusCode());
-        assertEquals(message.getMessageId(), messageReturned.getBody().getUuid());
+        assertEquals(message.getMessageId().toString(), messageReturned.getBody().getUuid().toString());
         assertEquals(message.getMessage(), messageReturned.getBody().getMessage());
         assertEquals(message.getMessageType().getType(), messageReturned.getBody().getMessageType());
     }
@@ -97,7 +98,7 @@ class MessageControllerTest {
 
         MessageController messageController = new MessageController(messagesUseCase, registerMessageUseCase, removeMessageUseCase);
 
-        ResponseEntity<MessageDto> messageReturned = messageController.getMessageById("ID");
+        ResponseEntity<MessageDto> messageReturned = messageController.getMessageById(UUID.randomUUID().toString());
         assertEquals(HttpStatus.NOT_FOUND, messageReturned.getStatusCode());
     }
 
@@ -106,9 +107,9 @@ class MessageControllerTest {
         when(removeMessageUseCase.removeMessageById(any())).thenReturn(message);
         MessageController messageController = new MessageController(messagesUseCase, registerMessageUseCase, removeMessageUseCase);
 
-        ResponseEntity<MessageDto> messageReturned = messageController.removeMessageById("ID");
+        ResponseEntity<MessageDto> messageReturned = messageController.removeMessageById(UUID.randomUUID().toString());
         assertEquals(HttpStatus.OK, messageReturned.getStatusCode());
-        assertEquals(message.getMessageId(), messageReturned.getBody().getUuid());
+        assertEquals(message.getMessageId().toString(), messageReturned.getBody().getUuid().toString());
         assertEquals(message.getMessage(), messageReturned.getBody().getMessage());
         assertEquals(message.getMessageType().getType(), messageReturned.getBody().getMessageType());
     }
@@ -119,7 +120,7 @@ class MessageControllerTest {
 
         MessageController messageController = new MessageController(messagesUseCase, registerMessageUseCase, removeMessageUseCase);
 
-        ResponseEntity<MessageDto> messageReturned = messageController.removeMessageById("ID");
+        ResponseEntity<MessageDto> messageReturned = messageController.removeMessageById(UUID.randomUUID().toString());
         assertEquals(HttpStatus.NOT_FOUND, messageReturned.getStatusCode());
     }
 

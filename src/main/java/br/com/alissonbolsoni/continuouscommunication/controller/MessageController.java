@@ -1,6 +1,7 @@
 package br.com.alissonbolsoni.continuouscommunication.controller;
 
 import br.com.alissonbolsoni.continuouscommunication.controller.dto.MessageDto;
+import br.com.alissonbolsoni.continuouscommunication.controller.dto.MessageRequestDto;
 import br.com.alissonbolsoni.continuouscommunication.controller.mapper.MessagesMapper;
 import br.com.alissonbolsoni.continuouscommunication.core.MessagesUseCase;
 import br.com.alissonbolsoni.continuouscommunication.core.RegisterMessageUseCase;
@@ -35,7 +36,7 @@ public class MessageController {
     }
 
     @PostMapping(PATH_REGISTER)
-    public ResponseEntity<MessageDto> registerMessage(@RequestBody final MessageDto messageDto) {
+    public ResponseEntity<MessageDto> registerMessage(@RequestBody final MessageRequestDto messageDto) {
 
         try {
             Message message = MessagesMapper.messageDtoToMessageEntity(messageDto);

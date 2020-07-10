@@ -6,7 +6,6 @@ import br.com.alissonbolsoni.continuouscommunication.dataprovider.entity.Message
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class MessageDestinyMapper {
 
@@ -35,7 +34,8 @@ public class MessageDestinyMapper {
     public static MessageDestiny tableToEntity(final MessageDestinyTable message){
         return new MessageDestiny(
                 message.getMessageDestinyId(),
-                message.getDestiny()
+                message.getDestiny(),
+                message.getMessageId()
         );
     }
 }
