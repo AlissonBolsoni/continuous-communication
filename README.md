@@ -5,7 +5,7 @@ serão enviadas por diversos canais, como por exemplo `E-MAIL`, `SMS`, `PUSH` e 
 O envio das mensagens salvas será feito através de um serviço paralelo de mensageria.  
 A comunicação com esse serviço será feita através do protocolo AMQP. O serviço AMQP que será utilizado é o `RabbitMQ` 
 e as mensagens serão enviadas para um ***Exchange*** do tipo ***Topic*** que irá distribuir as mensagens para as filas usando ***Routing Keys***.  
-O consumo das mensagens enviadas para o `RabbitMQ` será consumido através de um ***Worker***, 
+O consumo das mensagens enviadas para o `RabbitMQ` será feito através de um ***Worker***, 
 que no caso poderia ser separado em uma outra aplicação para garantir uma maior escalabilidade e segregação de reponsabilidades.
 
 ## Tecnologias Utilizadas
@@ -86,10 +86,8 @@ curl -X POST \
     "email5@teste.com.br"
   ],
   "message": "Mensagem para os emails 3, 4, 5",
-  "messageStatus": "",
   "messageType": "email",
   "sendTime": "2020-07-08T03:20:39.104Z",
-  "uuid": ""
 }'
 ```
 #### Retorno
@@ -117,17 +115,13 @@ A aplicação foi dividida em cinco módulos.
 >5. `Worker` - Módulo reponsável por receber as mensagens vindas do RabbitMQ.
 
 ## Executar a aplicação
-Estando na raiz do projeto utilize os comandos abaixo `docker-compose up --build -d` para executar o **Docker Compose** que contém o banco de dados
-e servidor `RABBIT-MQ`.  
-Com o banco de dados executando basta executar o projeto.
+Estando na raiz do projeto utilize os comandos abaixo.
 
 >1. **docker-compose up --build -d**  
     Para iniciar o `Docker` com o banco de dados `MySQL` e o sevidor `RabbitMQ`.
 >2. **mvn clean install**  
     Para fazer o build da aplicação e execução de testes unitários.
->3. **mvn clean install**  
-    Comando para rodar os testes e gerar o jar.
->4. **mvn spring-boot:run**  
+>3. **mvn spring-boot:run**  
      Comando para iniciar a aplicação.
 
 ## Swagger
