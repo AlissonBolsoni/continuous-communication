@@ -1,7 +1,4 @@
-# Continuous Communication  
-  
-   
-   ![alt text](LogoCC3.png)
+![alt text](LogoCC3.png =400px)
 
 O `Continuous Communication` é uma API para gerenciamento de mensagens que 
 serão enviadas por diversos canais, como por exemplo `E-MAIL`, `SMS`, `PUSH` e `WHATSAPP`.  
