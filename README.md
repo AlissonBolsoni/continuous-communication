@@ -1,4 +1,7 @@
-# Continuous Communication
+# Continuous Communication  
+  
+   
+   ![alt text](LogoCC3.png)
 
 O `Continuous Communication` é uma API para gerenciamento de mensagens que 
 serão enviadas por diversos canais, como por exemplo `E-MAIL`, `SMS`, `PUSH` e `WHATSAPP`.  
@@ -18,6 +21,14 @@ que no caso poderia ser separado em uma outra aplicação para garantir uma maio
 - JUnit5
 - Mockito
 - RabbitMQ
+
+## Arquitetura
+A aplicação foi dividida em cinco módulos.  
+>1. `Configuration` - Módulo para configurações dos `Beans` como ***RabbitMQ, Swagger***  
+>2. `Controller` - Módulo que contém os `Entry Points` do sistema, os `DTOs` e os mappers dos DTOs para os objetos do `CORE`
+>3. `Core` - Módulo que contém toda a régra de negócio e totalmente isolado dos outros módulos.
+>4. `Data Provider` - Módulo responsável por comunicar com o banco de dádos e outros serviços.
+>5. `Worker` - Módulo reponsável por receber as mensagens vindas do RabbitMQ.
 
 ### Comunicação com a API
 
@@ -105,14 +116,6 @@ curl -X POST \
     "messageStatus": "WAITING"
 }
 ```
-
-## Arquitetura
-A aplicação foi dividida em cinco módulos.  
->1. `Configuration` - Módulo para configurações dos `Beans` como ***RabbitMQ, Swagger***  
->2. `Controller` - Módulo que contém os `Entry Points` do sistema, os `DTOs` e os mappers dos DTOs para os objetos do `CORE`
->3. `Core` - Módulo que contém toda a régra de negócio e totalmente isolado dos outros módulos.
->4. `Data Provider` - Módulo responsável por comunicar com o banco de dádos e outros serviços.
->5. `Worker` - Módulo reponsável por receber as mensagens vindas do RabbitMQ.
 
 ## Executar a aplicação
 Estando na raiz do projeto utilize os comandos abaixo.
